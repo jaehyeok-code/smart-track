@@ -1,0 +1,15 @@
+server:
+  port: 8086
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/smarttrack?useSSL=false&serverTimezone=Asia/Seoul
+    username: smartuser
+    password: smartpass
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  batch:
+    jdbc:
+      initialize-schema: always

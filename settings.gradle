@@ -1,1 +1,8 @@
 rootProject.name = 'smart-track'
+include 'common'
+include 'notification-service'
+include 'order-service'
+include 'dispatch-service'
+include 'location-service'
+include 'batch-service'
+
