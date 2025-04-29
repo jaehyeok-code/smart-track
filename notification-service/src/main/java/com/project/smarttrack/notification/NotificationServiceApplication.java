@@ -1,13 +1,12 @@
-package com.project.smarttrack.order;
+package com.project.smarttrack.notification;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OrderServiceApplication {
+public class NotificationServiceApplication {
 
   public static void main(String[] args) {
-
-    SpringApplication.run(OrderServiceApplication.class, args);
+    SpringApplication.run(NotificationServiceApplication.class, args);
   }
 }
