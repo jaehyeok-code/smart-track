@@ -1,5 +1,6 @@
 package com.project.smarttrack.order.service;
 
+import com.project.smarttrack.common.dto.OrderCreatedEvent;
 import com.project.smarttrack.order.domain.Order;
 import com.project.smarttrack.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,20 @@ public class OrderService {
   private final KafkaTemplate<String, Object> kafkaTemplate;
 
   @Transactional
-  public Order creatOrder(Order order) {
+  public Order createOrder(Order order) {
 
     Order saved = orderRepository.save(order);
 
-    kafkaTemplate.send("orders", saved.getId().toString(), saved);
-    return saved;
+    OrderCreatedEvent event = OrderCreatedEvent.builder()
+        .orderId(saved.getId())
+        .customerId(saved.getCustomerId())
+        .pickupLocation(saved.getPickupLocation())
+        .destinationLocation(saved.getDestinationLocation())
+        .status(saved.getStatus())
+        .createdAt(saved.getCreatedAt())
+        .build();
 
+    kafkaTemplate.send("orders", event);
+    return saved;
   }
 }

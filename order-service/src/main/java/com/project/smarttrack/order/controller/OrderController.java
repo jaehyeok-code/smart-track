@@ -25,8 +25,9 @@ public class OrderController {
     order.setPickupLocation(request.getPickupLocation());
     order.setDestinationLocation(request.getDestinationLocation());
 
-    Order saved = orderService.creatOrder(order);
-    OrderResponse orderResponse = new OrderResponse(saved.getId(), saved.getStatus());
-    return ResponseEntity.status(201).body(orderResponse);
+    Order saved = orderService.createOrder(order);
+    OrderResponse response = new OrderResponse(saved.getId(), saved.getStatus());
+    return ResponseEntity.status(201).body(response);
   }
+
 }
