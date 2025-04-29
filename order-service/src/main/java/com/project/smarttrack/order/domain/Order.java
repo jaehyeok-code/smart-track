@@ -1,5 +1,6 @@
 package com.project.smarttrack.order.domain;
 
+import com.project.smarttrack.common.domain.OrderStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -31,18 +32,18 @@ public class Order {
 
   @Column(nullable = false)
   @Enumerated(EnumType.STRING)
-  private Status status;
+  private OrderStatus status;
 
   @Column(nullable = false)
-  private LocalDateTime createAt;
+  private LocalDateTime createdAt;
 
   @PrePersist
   public void prePersist(){
 
-    this.createAt = LocalDateTime.now();
+    this.createdAt = LocalDateTime.now();
 
     if (this.status == null) {
-      this.status = Status.RECEIVED;
+      this.status = OrderStatus.RECEIVED;
     }
   }
 
