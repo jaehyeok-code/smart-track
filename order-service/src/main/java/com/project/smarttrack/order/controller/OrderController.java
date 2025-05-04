@@ -20,6 +20,7 @@ public class OrderController {
 
   @PostMapping
   public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest request) {
+
     Order order = new Order();
     order.setCustomerId(request.getCustomerId());
     order.setPickupLocation(request.getPickupLocation());

@@ -34,8 +34,12 @@ public class Order {
   @Enumerated(EnumType.STRING)
   private OrderStatus status;
 
+  private LocalDateTime cancelledAt;
+
   @Column(nullable = false)
   private LocalDateTime createdAt;
+
+
 
   @PrePersist
   public void prePersist(){

@@ -1,5 +1,6 @@
 package com.project.smarttrack.dispatch.listener;
 
+import com.project.smarttrack.common.domain.DispatchStatus;
 import com.project.smarttrack.common.dto.DispatchCreatedEvent;
 import com.project.smarttrack.common.dto.OrderCreatedEvent;
 import com.project.smarttrack.dispatch.domain.Dispatch;
@@ -19,23 +20,12 @@ public class OrderCreatedListener {
   @KafkaListener(topics = "orders", groupId = "dispatch-service-group")
   public void handleOrderCreated(OrderCreatedEvent evt) {
 
-    Long dummyDriverId = 100L;
-
-    Dispatch dispatch = Dispatch.builder()
-        .orderId(evt.getOrderId())
-        .driverId(dummyDriverId)
-        .build();
-      Dispatch saved = dispatchRepository.save(dispatch);
-
-    DispatchCreatedEvent createdEvt = DispatchCreatedEvent.builder()
-        .dispatchId(saved.getId())
-        .orderId(saved.getOrderId())
-        .driverId(saved.getDriverId())
-        .status(saved.getStatus())
-        .assignedAt(saved.getAssignedAt())
-        .build();
-
-    kafkaTemplate.send("dispatches", createdEvt);
-
+      Dispatch dispatch = Dispatch.builder()
+          .orderId(evt.getOrderId())
+          .driverId(0L)                  // 실제 배정은 나중에 기사수락 시점에 채움.
+          .status(DispatchStatus.ASSIGNED) // ASSIGNED == 배정 대기
+          .build();
+      dispatchRepository.save(dispatch);
+    }
   }
-}
+

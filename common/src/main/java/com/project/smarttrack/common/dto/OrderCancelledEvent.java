@@ -1,7 +1,5 @@
 package com.project.smarttrack.common.dto;
 
-
-import com.project.smarttrack.common.domain.DispatchStatus;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,11 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DispatchCreatedEvent {
-
-  private Long dispatchId;
+public class OrderCancelledEvent {
   private Long orderId;
-  private Long driverId;
-  private DispatchStatus status;
-  private LocalDateTime assignedAt;
+  private String reason;
+  private LocalDateTime cancelledAt;
 }
